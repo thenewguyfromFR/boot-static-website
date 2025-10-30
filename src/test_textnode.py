@@ -45,7 +45,7 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(node_descr, "TextNode(This is a text node, bold text, None)")
 
     def test_texttype_plain(self):
-        node = TextNode("This is a plain text node", TextType.PLAIN)
+        node = TextNode("This is a plain text node", TextType.TEXT)
         node_descr = str(node)
         self.assertEqual(node_descr, "TextNode(This is a plain text node, plain text, None)")
 

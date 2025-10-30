@@ -56,6 +56,10 @@ class TestLeafNode(unittest.TestCase):
         node = LeafNode(None, "Hello, world!", {"src":"https://www.lemonde.fr"})
         self.assertEqual(node.to_html(), 'Hello, world!')
 
+    def test_leaf_to_html_unknown_tag(self):
+        node = LeafNode("c", "Hello, world!", {"src":"https://www.lemonde.fr"})
+        self.assertEqual(node.to_html(), 'Hello, world!')
+
     def test_leaf_to_html_no_value(self):
         with self.assertRaises(ValueError): LeafNode("p", None, {"src":"https://www.lemonde.fr"}).to_html()
 
