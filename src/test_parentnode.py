@@ -30,7 +30,6 @@ class TestLeafNode(unittest.TestCase):
         )
         self.assertEqual(node.to_html(), "<p><b>Bold text</b>Normal text<i>italic text</i>Normal text</p>")
 
-
     def test_to_html_no_tag(self):
         child_node = LeafNode("span", "child")
         with self.assertRaises(ValueError): ParentNode(None, [child_node]).to_html()

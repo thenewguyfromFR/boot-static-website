@@ -34,18 +34,19 @@ def text_node_to_html_node(text_node):
         case TextType.TEXT:
             html_node = LeafNode(None, text_node.text)
         case TextType.BOLD:
-            html_tag = LeafNode("b", text_node.text)
+            html_node = LeafNode("b", text_node.text)
         case TextType.ITALIC:
-            html_tag = LeafNode("i", text_node.text)
+            html_node = LeafNode("i", text_node.text)
         case TextType.CODE:
-            html_tag = LeafNode("code", text_node.text)
+            html_node = LeafNode("code", text_node.text)
         case TextType.LINK:
-            html_tag = LeafNode("link", text_node.text, {"href":f"{text_node.url}"})
+            html_node = LeafNode("a", text_node.text, {"href":f"{text_node.url}"})
         case TextType.IMAGE:
-            html_tag = LeafNode("img", text_node.text, {"src":f"{text_node.url}"})
+            html_node = LeafNode("img", text_node.text, {"src":f"{text_node.url}"})
         case _:
             raise Exception("Unknown Text Type")
 
     return html_node
 
-main()
+if __name__ == "__main__":
+    main()
