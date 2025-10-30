@@ -1,5 +1,5 @@
 from textnode import TextNode, TextType
-from htmlnode import HTMLNode
+from htmlnode import HTMLNode, LeafNode
 
 def main():
     textnode = TextNode("test of the TextNode creation", TextType.BOLD, "https://www.lemonde.fr/")
@@ -10,5 +10,9 @@ def main():
 
     htmlnode = HTMLNode("a", "this is an HTMLNode", [1, 2, 3])
     print(htmlnode)
+
+    leafnode = LeafNode("p", "Hello, world!")
+    print(leafnode.to_html())
+
 
 main()

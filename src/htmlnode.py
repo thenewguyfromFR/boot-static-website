@@ -18,3 +18,23 @@ class HTMLNode():
     
     def __repr__(self):
         return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props_to_html()})"
+    
+
+class LeafNode(HTMLNode):
+    def __init__(self, tag = None, value = None, props = None):
+        super().__init__(tag, value, None, props)
+
+    def to_html(self):
+        if self.value == "" or self.value is None:
+            raise ValueError
+        
+        match self.tag:
+            case "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "b" | "i" | "li" | "blockquote" | "code":
+                return f'<{self.tag}>{str(self.value)}</{self.tag}>'
+            case "a":
+                return f'<a{self.props_to_html()}>{self.value}</a>'
+            case "img":
+                return f'<img{self.props_to_html()} alt="{self.value}" />'
+            case _:
+                return str(self.value)
+        
