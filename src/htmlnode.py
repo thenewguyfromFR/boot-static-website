@@ -17,7 +17,7 @@ class HTMLNode():
         return result
     
     def __repr__(self):
-        return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props_to_html()})"
+        return f"HTMLNode({self.tag}, {self.value}, {self.children}, {self.props})"
     
 
 class LeafNode(HTMLNode):
@@ -27,17 +27,14 @@ class LeafNode(HTMLNode):
     def to_html(self):
         if self.value is None:
             raise ValueError("Value of a LeafNode can't be empty")
-        
-        match self.tag:
-            case "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "b" | "i" | "li" | "blockquote" | "code" | "span":
-                return f'<{self.tag}>{str(self.value)}</{self.tag}>'
-            case "a":
-                return f'<a{self.props_to_html()}>{self.value}</a>'
-            case "img":
-                return f'<img{self.props_to_html()} alt="{self.value}" />'
-            case _:
-                return str(self.value)
-        
+        if self.tag is None:
+            return self.value
+        return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
+
+    def __repr__(self):
+        return f"LeafNode({self.tag}, {self.value}, {self.props})"
+
+
 class ParentNode(HTMLNode):
     def __init__(self, tag, children, props = None):
         super().__init__(tag, None, children, props)
@@ -45,15 +42,12 @@ class ParentNode(HTMLNode):
     def to_html(self):
         if self.tag is None:
             raise ValueError("Tag of a ParentNode can't be empty")
-        
-        if self.children is None or len(self.children) == 0:
+        if self.children is None:
             raise ValueError("Children of a ParentNode can't be empty")
-        
-        html = f"<{self.tag}>"
-
+        children_html = ""
         for child in self.children:
-            html += child.to_html()
+            children_html += child.to_html()
+        return f"<{self.tag}{self.props_to_html()}>{children_html}</{self.tag}>"
 
-        html += f"</{self.tag}>"
-
-        return html
+    def __repr__(self):
+        return f"ParentNode({self.tag}, children: {self.children}, {self.props})"

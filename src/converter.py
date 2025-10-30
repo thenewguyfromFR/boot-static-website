@@ -12,11 +12,11 @@ def text_node_to_html_node(text_node):
         case TextType.CODE:
             html_node = LeafNode("code", text_node.text)
         case TextType.LINK:
-            html_node = LeafNode("a", text_node.text, {"href":f"{text_node.url}"})
+            html_node = LeafNode("a", text_node.text, {"href": text_node.url})
         case TextType.IMAGE:
-            html_node = LeafNode("img", text_node.text, {"src":f"{text_node.url}"})
+            html_node = LeafNode("img", "", {"src": text_node.url, "alt": text_node.text})
         case _:
-            raise Exception("Unknown Text Type")
+            raise Exception(f"Invalid Text Type: {text_node.text_type}")
 
     return html_node
 
